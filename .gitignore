@@ -1,0 +1,7 @@
+node_modules/
+__pycache__/
+.env
+*.duckdb
+*.duckdb.wal
+.DS_Store
+*.zip

@@ -1,0 +1,343 @@
+Real (rule/buyer) actions found on target adset-days: 246
+Our decisions: 2064
+Adset-days where BOTH we and a human/rule took a recorded action: 243
+
+Agreement matrix (rows = our action, cols = real action):
+                scale_up  scale_down        keep       pause    escalate
+    scale_up           9           1           0           0           0
+  scale_down           2           3           0           0           0
+        keep          59          22           2          10           0
+       pause           1          12           1           1           0
+    escalate          47          70           1           2           0
+
+Exact agreement: 15/243 (6%)
+
+================================================================================
+DISAGREEMENT CASES (our confident action != their action):
+================================================================================
+
+31107075634783 2026-06-10: WE=keep (conf 0.30) vs THEY=pause via rule (Turn OFF (1.27->1.27)) at 2026-06-10 20:00:11+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($1.24). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+31142755508350 2026-06-10: WE=keep (conf 0.30) vs THEY=pause via rule (Turn OFF (1.27->1.27)) at 2026-06-10 20:00:11+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($0.48). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+31167350331032 2026-06-10: WE=pause (conf 0.75) vs THEY=scale_down via buyer (ui_adjust_budget (6.35->3.18)) at 2026-06-10 12:00:49.487544+03:00
+  Our reasoning: This adset exhibits a clear and sustained deterioration pattern over its 5-day life. The first two days (Jun 06–07) showed strong ROI (1.20 and 1.52), with 8 total conversions across $9.65 spend. Howe
+
+31216242520025 2026-06-10: WE=keep (conf 0.30) vs THEY=pause via rule (Turn OFF (1.27->1.27)) at 2026-06-10 21:30:07+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($0.01). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+31243712380589 2026-06-10: WE=keep (conf 0.55) vs THEY=scale_up via buyer (ui_update_budget (2.67->6.35)) at 2026-06-10 15:00:42.501394+03:00
+  Our reasoning: The adset is only 6 days old with a mixed but slightly positive trailing ROI trend. Over the 5-day history: ROI ranges from -0.137 (2026-06-09) to +0.6533 (2026-06-08), with most days profitable (4 of
+
+31264368174916 2026-06-10: WE=keep (conf 0.30) vs THEY=pause via rule (Turn OFF (1.27->1.27)) at 2026-06-10 20:00:11+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($1.33). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+31276831698409 2026-06-10: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (1.27->3.81)) at 2026-06-10 14:06:36.410259+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($1.16). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+31278865310814 2026-06-10: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (1.27->3.81)) at 2026-06-10 18:51:40.231427+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($2.35). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+31315513289109 2026-06-10: WE=keep (conf 0.30) vs THEY=pause via rule (Turn OFF (1.27->1.27)) at 2026-06-10 20:00:11+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($0.95). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+31386467900989 2026-06-10: WE=keep (conf 0.30) vs THEY=pause via rule (Turn OFF (None->None)) at 2026-06-10 18:00:17+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($1.35). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+31554978465845 2026-06-10: WE=pause (conf 0.75) vs THEY=scale_down via buyer (ui_adjust_budget (3.81->1.9)) at 2026-06-10 12:00:49.931252+03:00
+  Our reasoning: This adset is only 4 days old with a clear deteriorating trend. Trailing ROI shows initial promise (0.20, 0.89 on June 7-8) but has sharply reversed to strongly negative territory (-0.24, -0.90 on Jun
+
+31626016833981 2026-06-10: WE=pause (conf 0.72) vs THEY=scale_down via buyer (update_ad_set_budget (82.51->66.0)) at 2026-06-10 22:30:04+03:00
+  Our reasoning: This adset shows a clear, sustained negative ROI trend over the last 4 consecutive days: +0.62 (Jun 6) → -0.02 (Jun 7) → +0.08 (Jun 8) → -0.25 (Jun 9) → -0.16 (Jun 10). The last three days are uniform
+
+31635294425899 2026-06-10: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (1.27->3.81)) at 2026-06-10 14:06:36.602548+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($0.91). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+31887606876383 2026-06-10: WE=keep (conf 0.30) vs THEY=pause via rule (Turn OFF (1.27->1.27)) at 2026-06-10 20:00:11+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($1.47). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730110190485390584 2026-06-10: WE=pause (conf 0.72) vs THEY=scale_down via buyer (ui_update_budget (1.9->1.27)) at 2026-06-10 16:50:03.277445+03:00
+  Our reasoning: Adset shows a clear, sustained deterioration over its 4-day history despite repeated manual budget cuts by the buyer. ROI trend: +1.99 (6/7) → +0.32 (6/8) → -0.26 (6/9) → -0.58 (6/10). The last two co
+
+730115622422491215 2026-06-10: WE=keep (conf 0.30) vs THEY=scale_down via buyer (ui_update_budget (3.81->1.27)) at 2026-06-10 11:59:34.577862+03:00
+  Our reasoning: Adset has 2 settled days but only $2.83 total trailing spend, below the $5 minimum-data floor. Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is
+
+730115798095752516 2026-06-10: WE=keep (conf 0.50) vs THEY=scale_up via buyer (ui_adjust_budget (26.92->39.62)) at 2026-06-10 19:38:50.642874+03:00
+  Our reasoning: The adset is only 3 days old with high volatility: day 1 (6/7) had zero spend, day 2 (6/8) showed strong ROI (+0.34) on small spend ($4.11), day 3 (6/9) turned negative (-0.20) on higher spend ($12.52
+
+730116715642536551 2026-06-10: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_adjust_budget (3.81->6.32)) at 2026-06-10 19:56:21.197030+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($3.39). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730119487809115633 2026-06-10: WE=pause (conf 0.72) vs THEY=scale_down via buyer (ui_update_budget (6.35->3.81)) at 2026-06-10 19:42:51.426618+03:00
+  Our reasoning: The adset shows a clear, sustained deterioration in profitability over the last 3 consecutive days. ROI peaked at 0.34 on 2026-06-07 (13 conversions, strong performance), but has declined sharply: -0.
+
+730119801657625147 2026-06-10: WE=keep (conf 0.30) vs THEY=scale_down via buyer (ui_update_budget (5.08->1.27)) at 2026-06-10 11:59:34.466518+03:00
+  Our reasoning: Adset has 2 settled days but only $3.07 total trailing spend, below the $5 minimum-data floor. Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is
+
+730124434859064417 2026-06-10: WE=keep (conf 0.55) vs THEY=scale_up via buyer (ui_update_budget (5.08->8.89)) at 2026-06-10 16:46:20.955135+03:00
+  Our reasoning: Adset is 14 days old with settled ROI data across the last 5 days. Trailing ROI pattern shows volatility: strong day on 6/6 (1.567), sharp dip on 6/7 (-0.352), recovery on 6/8 (0.582), sustained posit
+
+730124934416626981 2026-06-10: WE=keep (conf 0.30) vs THEY=scale_down via buyer (ui_adjust_budget (3.81->2.54)) at 2026-06-10 11:51:37.890761+03:00
+  Our reasoning: Adset has 5 settled days but only $4.22 total trailing spend, below the $5 minimum-data floor. Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is
+
+730125087398796770 2026-06-10: WE=keep (conf 0.55) vs THEY=scale_down via buyer (ui_adjust_budget (6.35->5.08)) at 2026-06-10 13:50:47.654898+03:00
+  Our reasoning: Adset is 4 days old with volatile but trending-positive performance. ROI swung from -0.17 → -0.31 → +0.28 → +0.04, with spend and conversions both rising sharply (3→5→10→20 conversions over 4 days). T
+
+730126527884690880 2026-06-10: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (1.27->3.81)) at 2026-06-10 14:07:23.936565+03:00
+  Our reasoning: Adset has 3 settled days but only $4.15 total trailing spend, below the $5 minimum-data floor. Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is
+
+730127988250776273 2026-06-10: WE=keep (conf 0.55) vs THEY=scale_up via buyer (ui_adjust_budget (80.98->97.17)) at 2026-06-10 12:08:41.809934+03:00
+  Our reasoning: Adset is 35 days old with settled daily ROI data across 5 recent days. Trailing ROI shows modest but variable performance: 0.133 → 0.2678 (strong) → 0.168 → 0.0502 (weak) → 0.1465. Conversion volume i
+
+730128237963253682 2026-06-10: WE=keep (conf 0.30) vs THEY=scale_down via buyer (ui_adjust_budget (3.81->2.54)) at 2026-06-10 11:51:37.690383+03:00
+  Our reasoning: Adset has 3 settled days but only $2.17 total trailing spend, below the $5 minimum-data floor. Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is
+
+730129450634378122 2026-06-10: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (1.27->3.81)) at 2026-06-10 21:01:31.095523+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($1.08). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730132393309052497 2026-06-10: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (2.54->5.08)) at 2026-06-10 11:52:14.313870+03:00
+  Our reasoning: Adset has 2 settled days but only $4.36 total trailing spend, below the $5 minimum-data floor. Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is
+
+730150234616497093 2026-06-10: WE=pause (conf 0.72) vs THEY=scale_down via buyer (ui_adjust_budget (2.54->1.27)) at 2026-06-10 11:57:21.496667+03:00
+  Our reasoning: This adset is only 4 days old and shows a clear deterioration pattern that justifies pausing. Day 1 (2026-06-07) started strongly at +81% ROI with 4 conversions. However, the subsequent three days sho
+
+730156675027409700 2026-06-10: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (1.27->3.81)) at 2026-06-10 16:40:48.482249+03:00
+  Our reasoning: Adset has 2 settled days but only $2.32 total trailing spend, below the $5 minimum-data floor. Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is
+
+730177201267065733 2026-06-10: WE=scale_down (conf 0.55) vs THEY=scale_up via buyer (ui_adjust_budget (10.38->16.73)) at 2026-06-10 16:47:46.308075+03:00
+  Our reasoning: Adset shows a clear deteriorating trend over the last 4 days: ROI fell from +0.6826 (June 6) to -0.0519 (June 7), -0.0736 (June 8), and -0.2911 (June 9), with a slight recovery to +0.1251 on June 10. 
+
+31155637096434 2026-06-11: WE=keep (conf 0.30) vs THEY=pause via rule (Turn OFF (1.27->1.27)) at 2026-06-11 15:01:17+03:00
+  Our reasoning: Adset has 2 settled days but only $0.09 total trailing spend, below the $5 minimum-data floor. Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is
+
+31190610559771 2026-06-11: WE=keep (conf 0.55) vs THEY=scale_up via buyer (ui_adjust_budget (5.08->8.48)) at 2026-06-11 15:34:16.610500+03:00
+  Our reasoning: Adset age_days=9 with trailing 6-day ROI history shows volatility but underlying viability: strong days (2.71, 0.97, 0.74 ROI on 06-06, 06-08, 06-11) interspersed with negative ROI days (06-09, 06-10)
+
+31239959394500 2026-06-11: WE=scale_up (conf 0.68) vs THEY=scale_down via buyer (ui_adjust_budget (6.35->5.08)) at 2026-06-11 09:33:23.888521+03:00
+  Our reasoning: This is a young adset (6 days old) showing a strong overall trend despite one weak day. Trailing ROI average is ~0.54 across settled data (0.1765 + 0.484 + 1.2579 + 1.2932 - 0.2577 + 0.3445 = 3.26 / 6
+
+31243712380589 2026-06-11: WE=keep (conf 0.58) vs THEY=scale_up via buyer (ui_adjust_budget (6.35->12.7)) at 2026-06-11 12:49:01.339838+03:00
+  Our reasoning: The adset shows mixed but generally positive trailing ROI over 6 days: 0.21, 0.44, 0.65, -0.14, 0.44, 0.34. Five of six days are profitable with a weighted average ROI around +0.35. However, three dat
+
+31278865310814 2026-06-11: WE=keep (conf 0.30) vs THEY=pause via rule (Turn OFF (1.27->3.81)) at 2026-06-11 02:00:07+03:00
+  Our reasoning: Adset has 2 settled days but only $2.72 total trailing spend, below the $5 minimum-data floor. Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is
+
+730110190485390584 2026-06-11: WE=pause (conf 0.70) vs THEY=scale_down via buyer (ui_adjust_budget (3.81->2.54)) at 2026-06-11 20:44:17.290442+03:00
+  Our reasoning: This adset shows a clear, sustained negative ROI trend over the past 4 consecutive days (2026-06-08 through 2026-06-11): starting at +0.32, then dropping to -0.26, -0.58, and -0.23. The most recent 3 
+
+730111165025674105 2026-06-11: WE=pause (conf 0.70) vs THEY=keep via buyer (ui_adjust_budget (1.27->1.27)) at 2026-06-11 09:34:23.674687+03:00
+  Our reasoning: This adset shows a severe and sustained deterioration pattern over the trailing 6-day window. ROI collapsed from +0.34 (June 6) through +0.01 (June 7) to -0.23 (June 8) and -0.69 (June 9), only barely
+
+730113735576237473 2026-06-11: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (1.27->3.81)) at 2026-06-11 13:17:19.775608+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($2.41). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730114082710212228 2026-06-11: WE=keep (conf 0.68) vs THEY=scale_down via buyer (ui_adjust_budget (19.05->15.24)) at 2026-06-11 09:33:22.546005+03:00
+  Our reasoning: The adset shows a moderately positive trailing ROI trend (0.37 → -0.05 → 0.15 → -0.12 → 0.23 → 0.16 across the last 6 days). While daily ROI fluctuates, the most recent two days (2026-06-10 and 2026-0
+
+730115451617748648 2026-06-11: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_adjust_budget (2.54->5.08)) at 2026-06-11 19:57:25.966345+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($2.93). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730115490245309167 2026-06-11: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (1.27->3.81)) at 2026-06-11 15:32:26.898745+03:00
+  Our reasoning: Adset has 2 settled days but only $4.91 total trailing spend, below the $5 minimum-data floor. Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is
+
+730115820570273151 2026-06-11: WE=keep (conf 0.30) vs THEY=scale_down via buyer (ui_update_budget (3.81->2.54)) at 2026-06-11 18:08:30.626601+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($2.40). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730116447002708596 2026-06-11: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (3.81->6.35)) at 2026-06-11 19:53:45.122595+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($3.56). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730117124109309101 2026-06-11: WE=keep (conf 0.30) vs THEY=scale_down via buyer (ui_adjust_budget (5.08->3.81)) at 2026-06-11 19:46:53.694452+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($3.24). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730117244449589091 2026-06-11: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (1.27->3.81)) at 2026-06-11 16:47:19.649424+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($1.75). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730117576322941540 2026-06-11: WE=keep (conf 0.55) vs THEY=scale_down via buyer (ui_adjust_budget (17.78->14.22)) at 2026-06-11 09:33:22.536891+03:00
+  Our reasoning: The adset is 31 days old with 6 days of recent trailing data, all settled. ROI trend over the last 6 days shows: +0.39, -0.08, +0.09, +0.28, +0.22, +0.38. This is a volatile but net-positive pattern w
+
+730119487809115633 2026-06-11: WE=keep (conf 0.55) vs THEY=scale_up via buyer (ui_update_budget (6.35->12.7)) at 2026-06-11 19:50:02.285494+03:00
+  Our reasoning: Adset shows mixed trailing ROI over 6 days: two profitable days (0.35, 0.34, then 0.99), three loss-making days (-0.12, -0.25, -0.15). Most recent day (2026-06-11) is strongly positive (ROI 0.9877, 16
+
+730119568344307064 2026-06-11: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (2.54->3.81)) at 2026-06-11 13:45:25.702516+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($3.05). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730119959190863707 2026-06-11: WE=keep (conf 0.30) vs THEY=scale_down via buyer (ui_adjust_budget (5.08->3.81)) at 2026-06-11 16:48:17.389564+03:00
+  Our reasoning: Adset has 3 settled days but only $4.76 total trailing spend, below the $5 minimum-data floor. Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is
+
+730119979220314198 2026-06-11: WE=keep (conf 0.55) vs THEY=scale_up via buyer (ui_adjust_budget (55.3->68.0)) at 2026-06-11 19:54:25.362045+03:00
+  Our reasoning: Trailing ROI is volatile but generally positive: 1.67, 0.49, 0.55, 1.10, -0.22, 0.86 over the last 6 settled days, with conversions holding in the 12-27 range and the most recent day back to a healthy
+
+730120112501189707 2026-06-11: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (2.54->3.81)) at 2026-06-11 16:45:33.401205+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($2.45). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730121054145158163 2026-06-11: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (1.27->3.81)) at 2026-06-11 16:47:19.635835+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($2.22). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730122581287354737 2026-06-11: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (1.27->3.81)) at 2026-06-11 15:32:26.981521+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($3.11). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730122691141682218 2026-06-11: WE=keep (conf 0.30) vs THEY=scale_down via buyer (ui_update_budget (3.05->1.27)) at 2026-06-11 15:01:40.210395+03:00
+  Our reasoning: Adset has 3 settled days but only $4.11 total trailing spend, below the $5 minimum-data floor. Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is
+
+730126105134999394 2026-06-11: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (2.54->3.81)) at 2026-06-11 16:45:33.362931+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($2.43). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730126881362912356 2026-06-11: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (3.81->6.35)) at 2026-06-11 19:52:24.115919+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($2.13). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730127340204266365 2026-06-11: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (1.27->3.81)) at 2026-06-11 15:32:26.937257+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($2.97). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730129772680132521 2026-06-11: WE=keep (conf 0.55) vs THEY=scale_up via buyer (ui_adjust_budget (10.92->17.27)) at 2026-06-11 12:49:01.258692+03:00
+  Our reasoning: Adset is 11 days old with settled daily data across 6 days. Trailing ROI shows volatility but positive overall signal: 7.61% (Jun 6) → 21.61% (Jun 7) → 52.33% (Jun 8, peak) → 12.82% (Jun 9) → 38.90% (
+
+730129999836227346 2026-06-11: WE=pause (conf 0.68) vs THEY=scale_up via buyer (ui_adjust_budget (27.2->32.64)) at 2026-06-11 15:30:51.511819+03:00
+  Our reasoning: The trailing ROI shows severe and sustained deterioration across a 6-day window: 0.7363 → 0.6339 → 0.4972 → 0.3556 → 0.045 → 0.1634. While there is a small uptick on 2026-06-11, the macro trend is unm
+
+730131057235610353 2026-06-11: WE=keep (conf 0.62) vs THEY=scale_down via buyer (ui_adjust_budget (24.38->21.95)) at 2026-06-11 16:48:35.830389+03:00
+  Our reasoning: The adset shows a mixed but fundamentally positive picture. Trailing 6-day ROI averages ~0.165, with individual days ranging from 0.0127 to 0.4057—volatile but consistently positive. Conversions are s
+
+730131468079569872 2026-06-11: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (2.54->5.08)) at 2026-06-11 10:46:34.527337+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($4.04). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730131579628248110 2026-06-11: WE=keep (conf 0.30) vs THEY=scale_down via buyer (ui_adjust_budget (5.08->3.81)) at 2026-06-11 19:41:51.029867+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($3.04). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730135016891241063 2026-06-11: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_adjust_budget (2.54->5.08)) at 2026-06-11 13:46:13.447371+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($3.59). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730168549344013312 2026-06-11: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (1.27->3.81)) at 2026-06-11 15:32:27.005524+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($2.07). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730174896873293820 2026-06-11: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (1.27->3.81)) at 2026-06-11 16:47:19.657525+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($1.69). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730177201267065733 2026-06-11: WE=keep (conf 0.55) vs THEY=scale_up via buyer (ui_adjust_budget (23.08->29.43)) at 2026-06-11 15:35:26.170879+03:00
+  Our reasoning: Adset is 15 days old with a volatile trailing ROI pattern: strong day on 6/6 (+68%), followed by 3 consecutive days of negative ROI (-5%, -7%, -29%), recovery on 6/10 (+13%), and partial recovery on 6
+
+730179534900076891 2026-06-11: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_adjust_budget (3.81->6.4)) at 2026-06-11 16:45:39.144550+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($2.78). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730188716765660042 2026-06-11: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (1.27->3.81)) at 2026-06-11 15:32:26.964558+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($1.70). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730194610463382060 2026-06-11: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (1.27->3.81)) at 2026-06-11 15:32:26.948147+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($2.81). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+31124038476129 2026-06-12: WE=keep (conf 0.52) vs THEY=scale_up via buyer (ui_update_budget (6.35->12.7)) at 2026-06-12 15:01:27.844449+03:00
+  Our reasoning: The adset shows mixed but overall positive signals across its 7-day history. Trailing ROI: -1.0 (Jun 6, minimal spend), +0.0694 (Jun 7), +0.717 (Jun 8, strong), +0.2475 (Jun 9), -0.0249 (Jun 10, near-
+
+31166928670267 2026-06-12: WE=keep (conf 0.30) vs THEY=pause via rule (Turn OFF (1.27->1.27)) at 2026-06-12 08:00:06+03:00
+  Our reasoning: Adset has 2 settled days but only $0.04 total trailing spend, below the $5 minimum-data floor. Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is
+
+31243712380589 2026-06-12: WE=keep (conf 0.55) vs THEY=scale_down via buyer (update_ad_set_budget (12.7->10.16)) at 2026-06-12 06:00:02+03:00
+  Our reasoning: The adset is 8 days old (very recent) with volatile but generally positive ROI trending. Trailing 7-day ROI: 0.207 → 0.442 → 0.653 → -0.137 → 0.441 → 0.345 → 0.078. Five of seven days are ROI-positive
+
+730110190485390584 2026-06-12: WE=pause (conf 0.70) vs THEY=scale_down via buyer (ui_update_budget (2.54->1.27)) at 2026-06-12 10:50:41.358984+03:00
+  Our reasoning: This adset shows a severe and sustained downward trajectory across all six days of history. ROI collapsed from +1.99 on day 1 to -1.0 on day 6 (zero conversions, negative return). The middle days show
+
+730110245237439923 2026-06-12: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (1.27->3.81)) at 2026-06-12 14:22:08.742342+03:00
+  Our reasoning: Adset has 2 settled days but only $2.03 total trailing spend, below the $5 minimum-data floor. Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is
+
+730111639108940228 2026-06-12: WE=keep (conf 0.55) vs THEY=scale_down via buyer (ui_adjust_budget (5.08->3.56)) at 2026-06-12 12:49:16.738517+03:00
+  Our reasoning: The adset shows mixed but trending positive ROI over the past 7 days: -0.37 → +0.77 → +0.04 → -0.28 → +0.36 → +2.27 → +0.26. The most recent two days (2026-06-11 and 2026-06-12) show strong conversion
+
+730114047301111609 2026-06-12: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (3.81->6.35)) at 2026-06-12 18:10:37.179849+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($2.22). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730114281522580260 2026-06-12: WE=pause (conf 0.70) vs THEY=scale_down via buyer (ui_adjust_budget (10.16->7.11)) at 2026-06-12 12:49:15.859545+03:00
+  Our reasoning: This adset shows a clear, sustained deterioration over the trailing 5-day window that strongly suggests immediate value destruction. ROI trended from +1.18 (June 9) → +0.60 (June 10) → -0.02 (June 11)
+
+730115820570273151 2026-06-12: WE=keep (conf 0.30) vs THEY=scale_down via buyer (ui_update_budget (2.54->1.27)) at 2026-06-12 10:49:23.238104+03:00
+  Our reasoning: Adset has 2 settled days but only $4.15 total trailing spend, below the $5 minimum-data floor. Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is
+
+730115891169413527 2026-06-12: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (1.27->3.81)) at 2026-06-12 17:45:04.363208+03:00
+  Our reasoning: Adset has 2 settled days but only $1.78 total trailing spend, below the $5 minimum-data floor. Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is
+
+730117900317539969 2026-06-12: WE=keep (conf 0.45) vs THEY=scale_up via buyer (ui_update_budget (5.31->8.89)) at 2026-06-12 21:15:50.618981+03:00
+  Our reasoning: Trailing ROI is volatile but net positive recently: after a rough day 6/6 (-0.83 ROI, 0 conv), the adset had two strong days (1.29, 1.33), then dipped (-0.47, 0.03, 0.06) and closed with a solid 0.68 
+
+730118943503085684 2026-06-12: WE=keep (conf 0.55) vs THEY=scale_up via buyer (ui_update_budget (6.36->12.7)) at 2026-06-12 15:01:27.557725+03:00
+  Our reasoning: The adset is 8 days old with a volatile but increasingly positive trailing ROI trend over the last 4 days (0.8519 → 0.0721 → 0.2021 → 0.4911). Spend has scaled up rapidly (1.37 → 2.64 → 4.78 → 4.27) f
+
+730119568344307064 2026-06-12: WE=keep (conf 0.30) vs THEY=scale_down via buyer (ui_adjust_budget (2.29->1.83)) at 2026-06-12 17:46:54.342408+03:00
+  Our reasoning: Adset has 2 settled days but only $4.76 total trailing spend, below the $5 minimum-data floor. Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is
+
+730120994981117060 2026-06-12: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (1.27->3.81)) at 2026-06-12 14:22:08.795679+03:00
+  Our reasoning: Adset has 2 settled days but only $2.21 total trailing spend, below the $5 minimum-data floor. Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is
+
+730121283157106350 2026-06-12: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (3.81->6.35)) at 2026-06-12 18:10:37.282142+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($1.71). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730122605373451600 2026-06-12: WE=keep (conf 0.30) vs THEY=scale_down via buyer (ui_adjust_budget (5.08->3.81)) at 2026-06-12 17:51:12.740696+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($2.10). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730124530082785923 2026-06-12: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (1.27->3.81)) at 2026-06-12 14:22:09.255492+03:00
+  Our reasoning: Adset has 2 settled days but only $1.99 total trailing spend, below the $5 minimum-data floor. Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is
+
+730124633804344724 2026-06-12: WE=keep (conf 0.55) vs THEY=scale_up via buyer (ui_adjust_budget (19.05->25.4)) at 2026-06-12 15:03:13.255815+03:00
+  Our reasoning: The adset is very young (age_days=5) and shows a promising upward trajectory in both spend and ROI: spend has ramped from $0.62 to $13.67 over 5 days, with conversions growing from 0 to 36. Most recen
+
+730125087398796770 2026-06-12: WE=keep (conf 0.55) vs THEY=scale_up via buyer (ui_update_budget (19.05->25.4)) at 2026-06-12 18:09:23.795105+03:00
+  Our reasoning: Adset is 6 days old with very recent aggressive budget scaling (3 increases in 24 hours, from $6.35 to $25.40). Trailing ROI is volatile: two negative days (Jun 07–08, ROI -0.17 and -0.31), one strong
+
+730125738085033886 2026-06-12: WE=pause (conf 0.70) vs THEY=scale_down via buyer (ui_update_budget (1.5->1.27)) at 2026-06-12 17:49:53.199103+03:00
+  Our reasoning: This adset shows a clear, sustained deterioration pattern over the trailing 7 days. ROI has collapsed from +3.05 (Jun 6) through a volatile middle period (ranging from -0.10 to +1.16 on Jun 7–10) to a
+
+730126105134999394 2026-06-12: WE=keep (conf 0.30) vs THEY=scale_down via buyer (ui_update_budget (3.05->2.54)) at 2026-06-12 18:16:04.545219+03:00
+  Our reasoning: Adset has 2 settled days but only $4.05 total trailing spend, below the $5 minimum-data floor. Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is
+
+730126881362912356 2026-06-12: WE=keep (conf 0.30) vs THEY=scale_down via buyer (ui_update_budget (6.35->1.27)) at 2026-06-12 10:50:10.833139+03:00
+  Our reasoning: Adset has 2 settled days but only $3.31 total trailing spend, below the $5 minimum-data floor. Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is
+
+730126934718397494 2026-06-12: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (1.27->3.81)) at 2026-06-12 18:14:14.786110+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($0.55). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730127248458779163 2026-06-12: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (1.27->3.81)) at 2026-06-12 14:22:09.413581+03:00
+  Our reasoning: Adset has 2 settled days but only $1.94 total trailing spend, below the $5 minimum-data floor. Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is
+
+730127935224481935 2026-06-12: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (1.27->3.81)) at 2026-06-12 14:22:10.705248+03:00
+  Our reasoning: Adset has 2 settled days but only $1.69 total trailing spend, below the $5 minimum-data floor. Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is
+
+730128836048301741 2026-06-12: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (1.27->3.81)) at 2026-06-12 14:22:09.269049+03:00
+  Our reasoning: Adset has 2 settled days but only $1.64 total trailing spend, below the $5 minimum-data floor. Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is
+
+730129588965280290 2026-06-12: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (1.27->3.81)) at 2026-06-12 17:45:06.941030+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($0.60). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730129944251126557 2026-06-12: WE=keep (conf 0.30) vs THEY=scale_down via buyer (ui_adjust_budget (5.08->3.81)) at 2026-06-12 17:51:12.794703+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($1.77). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730129999836227346 2026-06-12: WE=scale_down (conf 0.62) vs THEY=scale_up via buyer (ui_adjust_budget (32.64->39.17)) at 2026-06-12 17:37:38.466961+03:00
+  Our reasoning: The adset shows a clear declining ROI trend over the past 7 days: 0.7363 → 0.6339 → 0.4972 → 0.3556 → 0.045 → 0.1634 → 0.3337. While the most recent day (2026-06-12) shows a partial recovery to 0.33, 
+
+730130984014353917 2026-06-12: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (1.27->3.81)) at 2026-06-12 17:45:05.784058+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($0.86). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730132393309052497 2026-06-12: WE=pause (conf 0.65) vs THEY=scale_down via buyer (ui_update_budget (2.44->1.27)) at 2026-06-12 10:51:24.736507+03:00
+  Our reasoning: This adset is 4 days old with highly volatile trailing ROI: -0.264 (2026-06-09), +0.596 (2026-06-10), -0.137 (2026-06-11), -0.721 (2026-06-12). The last two days show sustained negative ROI despite th
+
+730133399467311318 2026-06-12: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (1.27->3.81)) at 2026-06-12 11:38:39.245887+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($1.19). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730145818928346722 2026-06-12: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (3.81->6.35)) at 2026-06-12 21:15:36.770650+03:00
+  Our reasoning: Adset has 2 settled days but only $3.02 total trailing spend, below the $5 minimum-data floor. Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is
+
+730167965141661801 2026-06-12: WE=keep (conf 0.30) vs THEY=scale_down via buyer (ui_adjust_budget (5.08->3.81)) at 2026-06-12 17:51:12.721023+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($2.73). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730172018151815904 2026-06-12: WE=pause (conf 0.70) vs THEY=scale_down via buyer (ui_adjust_budget (2.54->1.27)) at 2026-06-12 10:52:41.170631+03:00
+  Our reasoning: This adset exhibits a clear and sustained negative ROI trend over the most recent 3 days: -0.3633 (2026-06-10), -0.1716 (2026-06-11), and -0.5 (2026-06-12). While the adset showed promise on 2026-06-0
+
+730180846625475452 2026-06-12: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (3.81->6.35)) at 2026-06-12 21:15:36.882874+03:00
+  Our reasoning: Adset has only 1 settled day(s) of history, but negligible spend so far ($1.66). Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is both the safe
+
+730183556611520386 2026-06-12: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_update_budget (1.27->3.81)) at 2026-06-12 14:22:09.373756+03:00
+  Our reasoning: Adset has 2 settled days but only $2.03 total trailing spend, below the $5 minimum-data floor. Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is
+
+730188716765660042 2026-06-12: WE=keep (conf 0.30) vs THEY=scale_up via buyer (ui_adjust_budget (6.35->12.7)) at 2026-06-12 17:42:05.073523+03:00
+  Our reasoning: Adset has 2 settled days but only $4.56 total trailing spend, below the $5 minimum-data floor. Too small a sample to assess a real trend, and negligible stakes either way -- defaulting to no change is
+
+Full matched set written to out/comparison_matched.jsonl
