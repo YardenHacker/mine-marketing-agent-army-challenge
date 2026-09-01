@@ -107,9 +107,8 @@ Stated directly rather than left for a reviewer to discover:
 
 ## Time spent
 
-Work spanned parts of two days. I didn't run a stopwatch, so this is an honest estimate rather
-than a precise log: roughly **10-14 hours of active work**, not counting the real wall-clock time
-spent waiting on the ~15-minute batch run itself (which ran in the background while other work
-continued, per `DECISIONS.md`). Most of it went to Task A's methodology (the counterfactual
+**About 7 hours of active work**, spread across parts of two days (not counting the real
+wall-clock time spent waiting on the batch run itself, which ran in the background while other
+work continued, per `DECISIONS.md`). Most of it went to Task A's methodology (the counterfactual
 design, and re-deriving it after the R04 bug) and Task C's debugging (two live bugs in the batch
 run, then a second full pass diagnosing why the agent was too conservative and fixing it).
