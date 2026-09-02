@@ -145,9 +145,6 @@ Concrete numbers, each traced to a specific piece of evidence — not "reasonabl
 
 ### How "amount" actually gets decided — not a free-form number
 
-*Filled in during review — the schema and this document both referred to the Analyst producing
-an "amount" without ever specifying the mechanism behind it. Fixed here rather than left implicit.*
-
 The historical rule set never used arbitrary dollar figures — every rule is a fixed percentage
 step (R02: −20%, R07/R12: −40%, R10: −15%). This design keeps that pattern rather than asking the
 model to invent a number, and improves on it: **the system pre-computes a small set of candidate
@@ -163,7 +160,6 @@ LLM restricted to five pre-vetted options cannot produce an out-of-bounds one by
 
 ### Where the hard limits actually live — three layers, not one
 
-Stated explicitly because "the Guardian checks bounds" undersells how this actually has to work.
 The limits above are enforced independently at three points, deliberately redundant (a standard
 "defense in depth" pattern — if one layer has a bug, the others still catch it):
 
@@ -237,10 +233,6 @@ Using **750/day** as the current working scale.
 adsets gets screened every cycle at no LLM cost.
 
 **Analyst (Tier 2) — the exact Screener rule, and what it actually measures at.**
-*Corrected during review — the original version of this section used an assumed "~20% of active
-adsets get flagged" figure with no defined rule behind it. Challenged on where that boundary
-actually comes from; there wasn't one yet. Defined it concretely and measured it against the real
-data (`sql/10_screener_flag_rate.sql`) instead of leaving it as an assumption.*
 
 The Screener flags an adset for Analyst review if **any** of:
 1. It is on its first settled day (`spend_day_no = 1`) — the exact situation behind R04's 109
@@ -363,14 +355,12 @@ At 25–195× headroom, the constraint on improving this system stops being cost
   budget, and a real gap in the design as it stood: §1 cites Anthropic's routing, prompt-chaining,
   *and* evaluator-optimizer patterns, but only the first two were actually used anywhere.
 
-  **What the evaluator checks — deliberately not "the same failure modes again."** An earlier
-  version of this justification cited the R04/buyer thin-data pattern and R08's age-only judgment
-  as the evaluator's targets; on review, neither holds up. The thin-data case is already
-  structurally unreachable — the minimum data floor above forces `escalate` before the Analyst's
-  confidence even matters. R08 was a symptom of the *old rule engine* having no performance
-  condition at all in its logic; the Analyst is never in that position, since it's always handed
-  real performance data (§5). Citing already-solved problems isn't a justification, so the real
-  one is two things neither the Guardian nor the data floor can catch, because both only ever
+  **What the evaluator checks — not the same failure modes already handled elsewhere.** The
+  thin-data case is already structurally unreachable — the minimum data floor above forces
+  `escalate` before the Analyst's confidence even matters. R08's age-only-judgment problem was a
+  symptom of the *old rule engine* having no performance condition at all; the Analyst is never
+  in that position, since it's always handed real performance data (§5). The evaluator's actual
+  value is two things neither the Guardian nor the data floor can catch, because both only ever
   check the *output*, never the *reasoning* or the *absence* of an action:
   1. **Hallucination / context-fidelity** — does the Analyst's stated reasoning actually match the
      data it was given (e.g. a claimed trend that isn't in the context object)? Nothing else
@@ -496,10 +486,6 @@ approved today) — not per-adset detail beyond what's needed to check the speci
 confirm the live budget immediately before writing.
 
 ### How the Executor actually talks to Meta
-
-*Added because "calls the Meta API" was a black box in the first version of this section — the
-brief's rate-limit constraint and Task A's own findings only make sense with the real mechanics
-underneath them.*
 
 The real integration point is Meta's **Marketing API** (part of the Graph API), not a generic
 abstraction:
