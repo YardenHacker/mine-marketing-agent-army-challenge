@@ -1,9 +1,22 @@
 # The Agent Army Challenge — submission
 
-Investigation, architecture, and one working agent for a Meta ad-buying automation system. Start
-with [`DECISIONS.md`](DECISIONS.md) if you want the real build story (including the arguments and
-the mistakes); start with [`INVESTIGATION.md`](INVESTIGATION.md) / [`ARCHITECTURE.md`](ARCHITECTURE.md)
-/ [`RESULTS.md`](RESULTS.md) for the actual deliverables.
+Investigation, architecture, and one working agent for a Meta ad-buying automation system. The
+four deliverables, in the order the work actually happened:
+
+1. **[`INVESTIGATION.md`](INVESTIGATION.md)** — Task A. What the auto-rules actually did to the
+   account over the week, quantified, plus two concrete bad-rule cases and every data issue found.
+2. **[`ARCHITECTURE.md`](ARCHITECTURE.md)** — Task B. The POC design for an agent system that
+   replaces most of a media buyer's decisions — topology, decision boundaries, economics, failure
+   modes, data flow. No code; this is the design doc.
+3. **[`RESULTS.md`](RESULTS.md)** — Task C. The one agent actually built and run end-to-end
+   against the snapshot (2,064 real decisions, real Anthropic API calls), compared against what
+   really happened, with an honest account of where it's weak.
+4. **[`DECISIONS.md`](DECISIONS.md)** — Task D. A running log of the whole build: what was asked,
+   what was wrong, what got corrected, and the handful of decisions made deliberately rather than
+   delegated. Kept live throughout 1-3, not written after the fact.
+
+Everything else in this repo — code, data, SQL, run output — is supporting material for the four
+documents above, and lives in [`supporting/`](supporting/).
 
 ## Setup
 
@@ -77,9 +90,10 @@ existing output.
 ## Repo structure
 
 ```
-INVESTIGATION.md / ARCHITECTURE.md / RESULTS.md / DECISIONS.md   the four required deliverables
+INVESTIGATION.md / ARCHITECTURE.md / RESULTS.md / DECISIONS.md   the four required deliverables,
+                                      in that order -- see the top of this file
 README.md                            this file
-supporting/
+supporting/                          everything else -- code, data, and process history
   agent/                             Task C -- the working agent (llm_decision.py is the core
                                       judgment call; run_decisions.py runs the whole batch)
   analysis/                          Task A -- the investigation scripts
@@ -87,7 +101,7 @@ supporting/
   dataset/                           the provided CSVs + README_DATA.md, unmodified
   out/                               every script's actual output from the real runs (not sample data)
   assets/                            the static pipeline diagram
-PLAN.md                              working scratch doc kept during the build -- not a required
+  PLAN.md                            working scratch doc kept during the build -- not a required
                                       deliverable, left in for transparency into how the work was
                                       scoped and sequenced
 ```
