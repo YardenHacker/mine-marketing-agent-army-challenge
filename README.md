@@ -23,7 +23,7 @@ material and lives in [`supporting/`](supporting/).
 ## Setup
 
 ```bash
-pip install -r requirements.txt
+pip install -r supporting/requirements.txt
 ```
 
 Python 3.11+ (built and run on 3.13). Only needed for Task C's real LLM call: create a `.env`
@@ -106,6 +106,8 @@ supporting/                          everything else -- Task A's scripts, data, 
   PLAN.md                            working scratch doc kept during the build -- not a required
                                       deliverable, left in for transparency into how the work was
                                       scoped and sequenced
+  requirements.txt                   Python dependencies
+  candidate_brief.pdf                the original assignment brief, for reference
 ```
 
 ## Where corners were cut
