@@ -48,7 +48,7 @@ def get_real_budget_deltas(con):
 
 def main():
     con = get_connection()
-    decisions = [json.loads(l) for l in open("../out/decisions.jsonl")]
+    decisions = [json.loads(l) for l in open("../supporting/out/decisions.jsonl")]
     real_deltas = get_real_budget_deltas(con)
 
     eligible = [
@@ -109,7 +109,7 @@ def main():
             print(f"  {r['adset_id']} {r['date']}: WE={r['action']} (${r['our_impact']:+.2f}) "
                   f"vs REAL {r['real_delta']} (${r['real_impact']:+.2f})  [followup_roi={r['followup_avg_roi']:.3f}]")
 
-    with open("../out/money_impact.jsonl", "w") as f:
+    with open("../supporting/out/money_impact.jsonl", "w") as f:
         for r in rows:
             f.write(json.dumps(r) + "\n")
     print("\nFull detail written to out/money_impact.jsonl")

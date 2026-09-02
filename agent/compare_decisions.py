@@ -63,7 +63,7 @@ def get_real_actions(con):
 
 def main():
     con = get_connection()
-    decisions = [json.loads(l) for l in open("../out/decisions.jsonl")]
+    decisions = [json.loads(l) for l in open("../supporting/out/decisions.jsonl")]
     real_actions = get_real_actions(con)
 
     print(f"Real (rule/buyer) actions found on target adset-days: {len(real_actions)}")
@@ -103,7 +103,7 @@ def main():
               f"vs THEY={r['action']} via {r['source']} ({r['detail']}) at {r['time']}")
         print(f"  Our reasoning: {d['reasoning'][:200]}")
 
-    with open("../out/comparison_matched.jsonl", "w") as f:
+    with open("../supporting/out/comparison_matched.jsonl", "w") as f:
         for d, r in matched:
             f.write(json.dumps({"our_decision": d, "real_action": r}) + "\n")
     print(f"\nFull matched set written to out/comparison_matched.jsonl")

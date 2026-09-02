@@ -57,7 +57,7 @@ def is_correct(action, decision_roi_sign_hint, followup_avg_roi):
 
 def main():
     con = get_connection()
-    decisions = [json.loads(l) for l in open("../out/decisions.jsonl")]
+    decisions = [json.loads(l) for l in open("../supporting/out/decisions.jsonl")]
     scoreable = [d for d in decisions if d["decision_date"] in FOLLOWUP_DATES and d["action"] != "escalate" and d["llm_called"]]
 
     print(f"Scoreable LLM decisions (06-10/06-11 only, non-escalate): {len(scoreable)}")
@@ -101,7 +101,7 @@ def main():
         acc = sum(1 for r in bucket if r["correct"]) / len(bucket)
         print(f"  {action}: n={len(bucket)}, accuracy={acc:.0%}")
 
-    with open("../out/threshold_validation.jsonl", "w") as f:
+    with open("../supporting/out/threshold_validation.jsonl", "w") as f:
         for r in results:
             f.write(json.dumps({
                 "adset_id": r["decision"]["adset_id"], "decision_date": r["decision"]["decision_date"],

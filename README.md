@@ -10,13 +10,15 @@ four deliverables, in the order the work actually happened:
    modes, data flow. No code; this is the design doc.
 3. **[`RESULTS.md`](RESULTS.md)** — Task C. The one agent actually built and run end-to-end
    against the snapshot (2,064 real decisions, real Anthropic API calls), compared against what
-   really happened, with an honest account of where it's weak.
+   really happened, with an honest account of where it's weak. The working code itself,
+   **[`agent/`](agent/)**, is part of this deliverable — it sits at the repo root alongside the
+   write-up, not tucked away with the supporting material.
 4. **[`DECISIONS.md`](DECISIONS.md)** — Task D. A running log of the whole build: what was asked,
    what was wrong, what got corrected, and the handful of decisions made deliberately rather than
    delegated. Kept live throughout 1-3, not written after the fact.
 
-Everything else in this repo — code, data, SQL, run output — is supporting material for the four
-documents above, and lives in [`supporting/`](supporting/).
+Everything else — the Task A analysis scripts, raw data, SQL, and real run output — is supporting
+material and lives in [`supporting/`](supporting/).
 
 ## Setup
 
@@ -36,10 +38,9 @@ key at all (pure SQL/Python and a static design doc).
 
 ## How to reproduce each task
 
-All code and supporting material lives under `supporting/`, split by what it's for:
-`supporting/agent/` is the Task C agent, `supporting/analysis/` is Task A's scripts,
-`supporting/sql/` / `supporting/dataset/` / `supporting/out/` / `supporting/assets/` are queries,
-raw data, real run output, and the diagram image respectively. Every script's relative paths are
+The working agent (`agent/`) sits at the repo root as its own deliverable. Everything else lives
+under `supporting/`: `analysis/` is Task A's scripts, `sql/` / `dataset/` / `out/` / `assets/` are
+the queries, raw data, real run output, and diagram image. Every script's relative paths are
 written to work from *inside its own folder* — always `cd` into the specific folder below before
 running anything in it.
 
@@ -69,12 +70,12 @@ The pipeline diagram is in the doc as both Mermaid source (renders on GitHub) an
 (`supporting/assets/agent-pipeline-diagram.png`, for viewers that don't render Mermaid).
 
 **Task C — the Adset Decision Agent.** This is the one that costs money and needs the API key,
-run from `supporting/agent/`:
+run from `agent/`:
 
 ```bash
-cd supporting/agent
+cd agent
 python run_decisions.py --estimate   # prints a cost estimate, makes zero API calls -- run this first
-python run_decisions.py --run        # the real batch: 2,064 decisions, ~$2.20, writes ../out/decisions.jsonl
+python run_decisions.py --run        # the real batch: 2,064 decisions, ~$2.20, writes ../supporting/out/decisions.jsonl
 python compare_decisions.py          # joins decisions.jsonl against real rule/buyer history
 python validate_thresholds.py        # checks the confidence thresholds against settled outcomes
 python money_impact.py               # estimates $ impact of committed decisions vs. real actions
@@ -93,9 +94,10 @@ existing output.
 INVESTIGATION.md / ARCHITECTURE.md / RESULTS.md / DECISIONS.md   the four required deliverables,
                                       in that order -- see the top of this file
 README.md                            this file
-supporting/                          everything else -- code, data, and process history
-  agent/                             Task C -- the working agent (llm_decision.py is the core
+agent/                               Task C's working code -- part of the RESULTS.md deliverable,
+                                      not supporting material (llm_decision.py is the core
                                       judgment call; run_decisions.py runs the whole batch)
+supporting/                          everything else -- Task A's scripts, data, SQL, run output
   analysis/                          Task A -- the investigation scripts
   sql/                               every query cited in INVESTIGATION.md, one file per finding
   dataset/                           the provided CSVs + README_DATA.md, unmodified

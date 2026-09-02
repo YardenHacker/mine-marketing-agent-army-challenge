@@ -21,7 +21,7 @@ at connection time turns "parse this CSV" from O(queries) into O(1).
 import os
 import duckdb
 
-DATA_DIR = os.path.join(os.path.dirname(__file__), "..", "dataset")
+DATA_DIR = os.path.join(os.path.dirname(__file__), "..", "supporting", "dataset")
 
 
 def get_connection():

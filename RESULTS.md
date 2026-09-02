@@ -2,7 +2,7 @@
 
 This documents the one working slice from `ARCHITECTURE.md`: the **Adset Decision Agent**, run
 against all 2,064 required (adset, date) pairs across 2026-06-10/11/12. Code is in
-`supporting/agent/` (`context_compressor.py`, `deterministic_decision.py`, `llm_decision.py`,
+`agent/` (`context_compressor.py`, `deterministic_decision.py`, `llm_decision.py`,
 `guardrail_check.py`, `run_decisions.py`, `compare_decisions.py`, `validate_thresholds.py`); full run output is
 `supporting/out/decisions.jsonl`. The complete build-and-debug history — every bug found and fixed live, and
 every direct challenge from the user that changed the design — is in `DECISIONS.md`; this
