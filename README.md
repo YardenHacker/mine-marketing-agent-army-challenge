@@ -23,36 +23,45 @@ key at all (pure SQL/Python and a static design doc).
 
 ## How to reproduce each task
 
-All commands below assume `cd src` first (every script uses relative imports/paths from there).
+All code and supporting material lives under `supporting/`, split by what it's for:
+`supporting/agent/` is the Task C agent, `supporting/analysis/` is Task A's scripts,
+`supporting/sql/` / `supporting/dataset/` / `supporting/out/` / `supporting/assets/` are queries,
+raw data, real run output, and the diagram image respectively. Every script's relative paths are
+written to work from *inside its own folder* — always `cd` into the specific folder below before
+running anything in it.
 
-**Task A — the investigation.** Every query is a standalone `.sql` file in `sql/`, run against
-the CSVs loaded into DuckDB tables (`db.py`):
+**Task A — the investigation.** Every query is a standalone `.sql` file in `supporting/sql/`, run
+from `supporting/analysis/` against the CSVs loaded into DuckDB tables (`db.py`):
 
 ```bash
+cd supporting/analysis
 python run_sql.py ../sql/01_join_coverage_and_response_split.sql   # and 02-10, same pattern
 python impact_estimate.py      # the $ impact quantification behind INVESTIGATION.md sec1
 python eda.py && python eda_followup.py && python eda_verify.py   # the data-issues catalogue (sec3)
 ```
 
-Output: `out/turn_off_impact_detail.csv`, `out/budget_decrease_impact_detail.csv`. Findings are
-written up in [`INVESTIGATION.md`](INVESTIGATION.md); every number in it traces to one of these
-scripts.
+Output: `supporting/out/turn_off_impact_detail.csv`, `supporting/out/budget_decrease_impact_detail.csv`.
+Findings are written up in [`INVESTIGATION.md`](INVESTIGATION.md); every number in it traces to
+one of these scripts.
 
 **Task B — the architecture.** No code to run — [`ARCHITECTURE.md`](ARCHITECTURE.md) is the
 deliverable. The one number in it that *is* re-derivable from data is the Screener flag rate:
 
 ```bash
+cd supporting/analysis
 python run_sql.py ../sql/10_screener_flag_rate.sql
 ```
 
 The pipeline diagram is in the doc as both Mermaid source (renders on GitHub) and a static PNG
-(`assets/agent-pipeline-diagram.png`, for viewers that don't render Mermaid).
+(`supporting/assets/agent-pipeline-diagram.png`, for viewers that don't render Mermaid).
 
-**Task C — the Adset Decision Agent.** This is the one that costs money and needs the API key:
+**Task C — the Adset Decision Agent.** This is the one that costs money and needs the API key,
+run from `supporting/agent/`:
 
 ```bash
+cd supporting/agent
 python run_decisions.py --estimate   # prints a cost estimate, makes zero API calls -- run this first
-python run_decisions.py --run        # the real batch: 2,064 decisions, ~$2.20, writes out/decisions.jsonl
+python run_decisions.py --run        # the real batch: 2,064 decisions, ~$2.20, writes ../out/decisions.jsonl
 python compare_decisions.py          # joins decisions.jsonl against real rule/buyer history
 python validate_thresholds.py        # checks the confidence thresholds against settled outcomes
 python money_impact.py               # estimates $ impact of committed decisions vs. real actions
@@ -60,8 +69,8 @@ python money_impact.py               # estimates $ impact of committed decisions
 
 `run_decisions.py --run` is resumable — if it's interrupted or hits the hard cost ceiling
 (`$6.00`, well under the $10 reimbursement cap), re-running it picks up where it left off rather
-than re-paying for completed decisions. `out/decisions.jsonl` is already committed in this repo
-from the actual run, so you can run `compare_decisions.py` / `validate_thresholds.py` /
+than re-paying for completed decisions. `supporting/out/decisions.jsonl` is already committed in
+this repo from the actual run, so you can run `compare_decisions.py` / `validate_thresholds.py` /
 `money_impact.py` immediately without an API key or spending anything — they only read the
 existing output.
 
@@ -69,13 +78,18 @@ existing output.
 
 ```
 INVESTIGATION.md / ARCHITECTURE.md / RESULTS.md / DECISIONS.md   the four required deliverables
-dataset/                  the provided CSVs + README_DATA.md, unmodified
-sql/                       every query cited in INVESTIGATION.md, one file per finding
-src/                       all Python -- Task A analysis, Task C agent code, no code for Task B
-out/                       every script's actual output from the real runs (not sample data)
-assets/                    the static pipeline diagram
-PLAN.md                    working scratch doc kept during the build -- not a required deliverable,
-                           left in for transparency into how the work was scoped and sequenced
+README.md                            this file
+supporting/
+  agent/                             Task C -- the working agent (llm_decision.py is the core
+                                      judgment call; run_decisions.py runs the whole batch)
+  analysis/                          Task A -- the investigation scripts
+  sql/                               every query cited in INVESTIGATION.md, one file per finding
+  dataset/                           the provided CSVs + README_DATA.md, unmodified
+  out/                               every script's actual output from the real runs (not sample data)
+  assets/                            the static pipeline diagram
+PLAN.md                              working scratch doc kept during the build -- not a required
+                                      deliverable, left in for transparency into how the work was
+                                      scoped and sequenced
 ```
 
 ## Where corners were cut

@@ -4,15 +4,15 @@ Leadership's suspicion: the auto-rules destroyed money last week — killing win
 losers run. This document reconstructs what the 12 auto-rules actually did over the
 2026-06-06 → 2026-06-12 window, across ACC-01…ACC-06, and quantifies the impact.
 
-All queries referenced below live in `sql/*.sql`. All Python analysis lives in `src/*.py`.
-Everything is re-runnable — see [README.md](README.md).
+All queries referenced below live in `supporting/sql/*.sql`. All Python analysis lives in
+`supporting/analysis/*.py`. Everything is re-runnable — see [README.md](README.md).
 
 ---
 
 ## 0. Before trusting the log: what actually happened vs. what was logged
 
 The rule engine logs an attempt every time a rule's condition is met — not every attempt
-succeeded. Splitting `rule_executions.csv` by its `response` column (`sql/01_join_coverage_and_response_split.sql`):
+succeeded. Splitting `rule_executions.csv` by its `response` column (`supporting/sql/01_join_coverage_and_response_split.sql`):
 
 | response | count | meaning |
 |---|---:|---|
@@ -50,9 +50,9 @@ below.
 **The brief is explicit that there's no single correct way to do this — here is the method
 used, and why, stated in full so it can be checked or disputed.**
 
-Full detail: `src/impact_estimate.py` (heavily commented — the file itself is written to be
-read as documentation of the method, not just code) and `sql/06_revenue_delay.sql`,
-`sql/09_r04_null_check.sql`.
+Full detail: `supporting/analysis/impact_estimate.py` (heavily commented — the file itself is written to be
+read as documentation of the method, not just code) and `supporting/sql/06_revenue_delay.sql`,
+`supporting/sql/09_r04_null_check.sql`.
 
 ### 1.1 The two action families need two different counterfactuals
 
@@ -68,7 +68,7 @@ The obvious first choice for "what would this adset have kept earning" is the tr
 figures already in `rule_executions.csv` (`last_3_days_roi_at_action`, `last_3_days_spend_at_action`).
 The first version of this analysis used exactly that — and it silently produced **$0.00 impact
 for R04 in every scenario**, which looked wrong for the single biggest rule (109 of 164 successful
-executions, 51% of all rule activity). Checking why (`sql/09_r04_null_check.sql`): **0 of R04's
+executions, 51% of all rule activity). Checking why (`supporting/sql/09_r04_null_check.sql`): **0 of R04's
 109 rows have a non-null trailing-3-day figure**, because R04 fires on adsets that are exactly
 one day old — by construction, a one-day-old adset has no three-day trailing window. The method
 wasn't finding "R04 has zero impact"; it was finding "this method can't see R04 at all," and
@@ -77,7 +77,7 @@ finding about the rules.
 
 **Fix:** use the adset's own **settled same-day performance** from `daily_adset_performance.csv`
 (`perf.spend`, `perf.roi` for that `adset_id` + `action_date`) instead. This is available for
-essentially every row (perf join coverage is 100%, see §1.4 / `sql/01`), and it's also a *more
+essentially every row (perf join coverage is 100%, see §1.4 / `supporting/sql/01`), and it's also a *more
 accurate* number than `today_roi_at_action` for the reason established in §1.4 below: same-day
 ROI as seen mid-day systematically understates the day's true final ROI, so the settled figure
 corrects for exactly the bias that would make a rule's decision look more justified than it was.
@@ -130,7 +130,7 @@ forgone_profit = Σ over the window of: actual_daily_spend × budget_ratio × ac
 
 Comparing what the rule engine *saw* at the moment of action (`today_roi_at_action`,
 `spend_at_action`) against the *final settled* figure for that same adset-day
-(`sql/06_revenue_delay.sql`), across all 164 successful executions:
+(`supporting/sql/06_revenue_delay.sql`), across all 164 successful executions:
 
 - The gap between same-day-seen ROI and final ROI is **largest in the early morning hours**
   (04:00–08:00, average gap +0.25 to +0.48) and **shrinks to near zero by evening** — a clean,
@@ -141,18 +141,18 @@ Comparing what the rule engine *saw* at the moment of action (`today_roi_at_acti
   this data (poll spend freely; treat same-day ROI as provisional, especially before ~09:00).
 - Pooled across all 164 actions: **11 (6.7%) were taken when the adset looked like a loser
   (negative ROI) at the moment of action, but the day finished at breakeven or better** (full list
-  in `sql/08_all_flipped_cases.sql`). Only 1 action flipped the other way (looked like a winner
+  in `supporting/sql/08_all_flipped_cases.sql`). Only 1 action flipped the other way (looked like a winner
   mid-day, finished a loser). That 11:1 asymmetry is the direct, quantified evidence for
   leadership's "killed winners" suspicion — and it really is concentrated, not spread evenly:
   **R08 accounts for 4 of the 11** (on 3 unique adsets — see §2's supporting pattern), R02 for 3,
   and R01/R07/R10/R12 one each. **R04 — the single largest rule at 109 executions — accounts for
   zero of the 11**, confirmed by a dedicated, stricter search that came back empty
-  (`sql/07_case_study_r04_killed_winner.sql`, later broadened into the unrestricted search in
-  `sql/08` that produced the full 11-row list above).
+  (`supporting/sql/07_case_study_r04_killed_winner.sql`, later broadened into the unrestricted search in
+  `supporting/sql/08` that produced the full 11-row list above).
 
 ### 1.5 Results
 
-**Turn-off rules**, forgone profit by rule and scenario (`out/turn_off_impact_detail.csv` has
+**Turn-off rules**, forgone profit by rule and scenario (`supporting/out/turn_off_impact_detail.csv` has
 every row):
 
 | rule_id | n | conservative | central | optimistic |
@@ -170,7 +170,7 @@ every row):
 conservative/central/optimistic collapse to the single settled-ROI reading for all 109 rows.)
 
 **Budget-decrease rules**, forgone profit from realized post-cut performance
-(`out/budget_decrease_impact_detail.csv`):
+(`supporting/out/budget_decrease_impact_detail.csv`):
 
 | rule_id | n | forgone profit |
 |---|---:|---:|
@@ -221,7 +221,7 @@ easily produce a larger burned figure from the exact same rule logic.
 **Adset `31314467522499`**, ACC-04, "easy-hearing-aids-program-58" campaign, created 2026-06-05
 (1 day old on the day in question).
 
-Timeline (`sql/03_case_study_31314467522499.sql`):
+Timeline (`supporting/sql/03_case_study_31314467522499.sql`):
 
 1. **06-08, 04:00** — R08 (`Turn OFF | Total Days = 4`, a pure age gate with **no performance
    condition at all**) fires and succeeds. At that moment `today_roi_at_action = -0.37`.
@@ -286,20 +286,20 @@ kill a winner purely by chance, and 1-in-3 in this data is not a rare event.)*
 
 | # | Issue | How it was found | How it was handled |
 |---|---|---|---|
-| 1 | 23% of logged rule executions never took effect (30 API errors, 20 no-ops) | Grouped `rule_executions.response` (`sql/01`) | All impact analysis restricted to `response = 'SUCCESS'` rows only |
-| 2 | The 30 API failures aren't random noise — they're a single account's ~61-hour outage window | Grouped failures by account + hour (`sql/02`), bounded the window using genuine `SUCCESS` timestamps rather than the ambiguous no-op responses (`sql/04`) | Treated as a real infrastructure event; became the basis for Case 1 and a Task B guardrail (alerting/kill-switch on repeated API failures per account) |
-| 3 | Two non-overlapping `adset_id` formats (14-digit and 18-digit) across files | Length-distribution check + suffix-matching to rule out truncation | All views load `adset_id` as `VARCHAR` explicitly (`src/db.py`); confirmed 75/75 unique `rule_executions` adsets join cleanly to both `perf` and `meta` (`sql/01`) |
-| 4 | `response` column contains raw JSON with embedded commas, which would corrupt column alignment under a naive CSV split | Manually verified during initial profiling before any real parser was in place | Used DuckDB's real CSV parser throughout; verified after loading that `rule_id` only ever takes values R01–R12 (`sql/01`, query 3) — confirms no column-shift occurred |
-| 5 | `budget_level` looked corrupted during initial (naive, pre-tooling) profiling — showed fractional values like `0.1016` | Re-checked the same column through the real parser (`sql/04`) | Resolved: it cleanly takes only `adset`, `campaign`, or NULL. The earlier odd values were an artifact of a naive comma-split parse colliding with issue #3 above — a false alarm caught by re-verifying with proper tooling before it entered a deliverable |
-| 6 | `meta.daily_budget` and `rule_exec.old_budget`/`new_budget` are on different, inconsistent scales for the same adset — ratios range ~100×–300×, not a fixed conversion factor | Joined the two on `adset_id` for all 75 rule-touched adsets (`sql/04`, `sql/05`) | Two hypotheses tested and ruled out: (a) CBO campaign-level budget pooling — ruled out, every affected campaign has exactly 1 sibling adset, and the mismatch occurs under ABO too; (b) a flat unit/currency conversion bug — ruled out, the ratio varies continuously (100, 133, 150, 160, 166, 185, 260, 300…) rather than sitting at one constant. **Root cause not resolved** — flagged explicitly rather than guessed. Handled by never comparing absolute dollar figures across the two systems; all impact analysis in §1 uses `rule_exec`'s own budget/spend figures internally and `perf`'s figures internally, never cross-system |
-| 7 | `old_budget` sometimes disagrees with `current_budget_from_fb` (the live Meta-side reading) | Row count check comparing the two columns (`sql/01` profiling) — 64 of 214 rows differ | Noted as evidence the reporting system's view of "current budget" can be stale; not corrected (no way to know which is right from this snapshot), but flagged as a live-system risk for Task B (poll the source of truth, don't trust a cached budget figure before acting) |
+| 1 | 23% of logged rule executions never took effect (30 API errors, 20 no-ops) | Grouped `rule_executions.response` (`supporting/sql/01`) | All impact analysis restricted to `response = 'SUCCESS'` rows only |
+| 2 | The 30 API failures aren't random noise — they're a single account's ~61-hour outage window | Grouped failures by account + hour (`supporting/sql/02`), bounded the window using genuine `SUCCESS` timestamps rather than the ambiguous no-op responses (`supporting/sql/04`) | Treated as a real infrastructure event; became the basis for Case 1 and a Task B guardrail (alerting/kill-switch on repeated API failures per account) |
+| 3 | Two non-overlapping `adset_id` formats (14-digit and 18-digit) across files | Length-distribution check + suffix-matching to rule out truncation | All views load `adset_id` as `VARCHAR` explicitly (`supporting/analysis/db.py`); confirmed 75/75 unique `rule_executions` adsets join cleanly to both `perf` and `meta` (`supporting/sql/01`) |
+| 4 | `response` column contains raw JSON with embedded commas, which would corrupt column alignment under a naive CSV split | Manually verified during initial profiling before any real parser was in place | Used DuckDB's real CSV parser throughout; verified after loading that `rule_id` only ever takes values R01–R12 (`supporting/sql/01`, query 3) — confirms no column-shift occurred |
+| 5 | `budget_level` looked corrupted during initial (naive, pre-tooling) profiling — showed fractional values like `0.1016` | Re-checked the same column through the real parser (`supporting/sql/04`) | Resolved: it cleanly takes only `adset`, `campaign`, or NULL. The earlier odd values were an artifact of a naive comma-split parse colliding with issue #3 above — a false alarm caught by re-verifying with proper tooling before it entered a deliverable |
+| 6 | `meta.daily_budget` and `rule_exec.old_budget`/`new_budget` are on different, inconsistent scales for the same adset — ratios range ~100×–300×, not a fixed conversion factor | Joined the two on `adset_id` for all 75 rule-touched adsets (`supporting/sql/04`, `supporting/sql/05`) | Two hypotheses tested and ruled out: (a) CBO campaign-level budget pooling — ruled out, every affected campaign has exactly 1 sibling adset, and the mismatch occurs under ABO too; (b) a flat unit/currency conversion bug — ruled out, the ratio varies continuously (100, 133, 150, 160, 166, 185, 260, 300…) rather than sitting at one constant. **Root cause not resolved** — flagged explicitly rather than guessed. Handled by never comparing absolute dollar figures across the two systems; all impact analysis in §1 uses `rule_exec`'s own budget/spend figures internally and `perf`'s figures internally, never cross-system |
+| 7 | `old_budget` sometimes disagrees with `current_budget_from_fb` (the live Meta-side reading) | Row count check comparing the two columns (`supporting/sql/01` profiling) — 64 of 214 rows differ | Noted as evidence the reporting system's view of "current budget" can be stale; not corrected (no way to know which is right from this snapshot), but flagged as a live-system risk for Task B (poll the source of truth, don't trust a cached budget figure before acting) |
 | 8 | Some "Budget Decrease" rule executions show `new_budget > old_budget` (an increase, not a decrease) | Spot-checked while reviewing budget-decrease impact detail (§1.3 output) | Consistent with issue #7 — the reporting system's budget bookkeeping isn't fully reliable. Rows like this were included as-is in the impact calculation (the realized-performance method in §1.3 doesn't depend on the direction being correct, only on the actual budget values), but the inconsistency itself is reported here rather than silently smoothed over |
-| 9 | R03 and R11 have overlapping trigger conditions (`positive_days = 0, total_days > 2` vs `> 3`) — R11's condition is a strict subset of a state R03 should already have caught | Read the 12 rule names carefully (`sql/` — no query needed, this is definitional) | Not independently verifiable from execution data alone (would need to see cases where R03 failed to fire but R11 did); flagged as a rule-set design smell worth resolving, not a data-quality issue per se |
+| 9 | R03 and R11 have overlapping trigger conditions (`positive_days = 0, total_days > 2` vs `> 3`) — R11's condition is a strict subset of a state R03 should already have caught | Read the 12 rule names carefully (`supporting/sql/` — no query needed, this is definitional) | Not independently verifiable from execution data alone (would need to see cases where R03 failed to fire but R11 did); flagged as a rule-set design smell worth resolving, not a data-quality issue per se |
 | 10 | R02/R07/R12/R10's ROI trigger bands leave gaps (e.g. nothing covers `-0.50 < roi <= -0.30` outside R02's own band in some configurations) | Read the 12 rule names carefully, cross-checked thresholds against the README's percentage-vs-ratio convention | Same as #9 — a rule-set completeness observation, not something the data can resolve on its own |
-| 11 | 72 rows in `daily_adset_performance.csv` are **true full-row duplicates** (every column identical, not just the join key) — 72 `(adset_id, date)` keys each appear twice | Grouped on the full row (not just the key) via `GROUP BY` and independently re-derived with a `row_number()` window function (`src/eda.py`, verified in `src/eda_verify.py` §V1–V2) | Checked whether this affected any Task A number: **no** — none of the 72 duplicated adsets appear in `rule_executions.csv` at all (`src/eda_followup.py` §B, re-confirmed via anti-join in `src/eda_verify.py` §V3). Left as-is in the raw file (not deduplicated in place) since Task A's queries join through `rule_exec` and never hit this; flagged for anyone doing a raw `SUM(spend)` off `perf` directly |
-| 12 | `meta.language` has severe spelling/casing inconsistency — 34 raw string values collapse to ~20 real categories. English alone is spelled 4 ways (`en`, `EN ` with trailing space, `EN`, `English`); the pattern repeats for es/de/fr/pt/sv/ja/ar. One row is a literal single-space character, distinct from NULL | Full distinct-value listing with bracketed/length inspection to catch invisible whitespace (`src/eda.py` §5, `src/eda_followup.py` §I) | Every uppercase 2-letter code carries a trailing space, every lowercase one doesn't — too consistent to be typing error; most likely two source systems or import batches merged without normalization. Re-verified the collapsed totals sum exactly to all 7,129 `meta` rows (`src/eda_verify.py` §V4) before treating this as reliable. `language` was not used in any Task A calculation, so no impact analysis needed correction — flagged for Task B/data-hygiene attention (see §3.5) |
-| 13 | 13 rows have `cr > 1` (a "conversion rate" over 100%) | Cross-referenced against `estimated_conversions > clicks` (`src/eda.py` §7, confirmed 13/13 in `src/eda_verify.py` §V6) | Not a data error: `estimated_conversions` comes from a multi-touch attribution model that can credit an adset with conversions beyond its own tracked clicks (view-through/cross-device). `cr` is therefore "attributed conversions ÷ own clicks," not a true bounded rate — worth documenting so nobody builds a rule assuming `cr <= 1` |
-| 14 | `last_3_days_revenue_at_action` is non-null for 49 rows where `last_3_days_spend_at_action`/`last_3_days_roi_at_action` are null — all 49 are R04, day-1 adsets that by definition shouldn't have any 3-day trailing figure at all | Cross-tabulated null patterns across the three `last_3_days_*` columns (`src/eda_followup.py` §G), confirmed the full set (not a sample) is 100% R04/day-1 in `src/eda_verify.py` §V5 | **Unresolved** — either the revenue figure is computed under a looser/different gate than spend and ROI in the rule engine's context-building step, or it's picking up something attributable before the adset's own first day. Not used anywhere in the Task A impact calculation (`impact_estimate.py` only reads `last_3_days_roi_at_action`, which is reliably null here), so it didn't corrupt any number — but it's a real internal inconsistency worth escalating to whoever owns that pipeline |
+| 11 | 72 rows in `daily_adset_performance.csv` are **true full-row duplicates** (every column identical, not just the join key) — 72 `(adset_id, date)` keys each appear twice | Grouped on the full row (not just the key) via `GROUP BY` and independently re-derived with a `row_number()` window function (`supporting/analysis/eda.py`, verified in `supporting/analysis/eda_verify.py` §V1–V2) | Checked whether this affected any Task A number: **no** — none of the 72 duplicated adsets appear in `rule_executions.csv` at all (`supporting/analysis/eda_followup.py` §B, re-confirmed via anti-join in `supporting/analysis/eda_verify.py` §V3). Left as-is in the raw file (not deduplicated in place) since Task A's queries join through `rule_exec` and never hit this; flagged for anyone doing a raw `SUM(spend)` off `perf` directly |
+| 12 | `meta.language` has severe spelling/casing inconsistency — 34 raw string values collapse to ~20 real categories. English alone is spelled 4 ways (`en`, `EN ` with trailing space, `EN`, `English`); the pattern repeats for es/de/fr/pt/sv/ja/ar. One row is a literal single-space character, distinct from NULL | Full distinct-value listing with bracketed/length inspection to catch invisible whitespace (`supporting/analysis/eda.py` §5, `supporting/analysis/eda_followup.py` §I) | Every uppercase 2-letter code carries a trailing space, every lowercase one doesn't — too consistent to be typing error; most likely two source systems or import batches merged without normalization. Re-verified the collapsed totals sum exactly to all 7,129 `meta` rows (`supporting/analysis/eda_verify.py` §V4) before treating this as reliable. `language` was not used in any Task A calculation, so no impact analysis needed correction — flagged for Task B/data-hygiene attention (see §3.5) |
+| 13 | 13 rows have `cr > 1` (a "conversion rate" over 100%) | Cross-referenced against `estimated_conversions > clicks` (`supporting/analysis/eda.py` §7, confirmed 13/13 in `supporting/analysis/eda_verify.py` §V6) | Not a data error: `estimated_conversions` comes from a multi-touch attribution model that can credit an adset with conversions beyond its own tracked clicks (view-through/cross-device). `cr` is therefore "attributed conversions ÷ own clicks," not a true bounded rate — worth documenting so nobody builds a rule assuming `cr <= 1` |
+| 14 | `last_3_days_revenue_at_action` is non-null for 49 rows where `last_3_days_spend_at_action`/`last_3_days_roi_at_action` are null — all 49 are R04, day-1 adsets that by definition shouldn't have any 3-day trailing figure at all | Cross-tabulated null patterns across the three `last_3_days_*` columns (`supporting/analysis/eda_followup.py` §G), confirmed the full set (not a sample) is 100% R04/day-1 in `supporting/analysis/eda_verify.py` §V5 | **Unresolved** — either the revenue figure is computed under a looser/different gate than spend and ROI in the rule engine's context-building step, or it's picking up something attributable before the adset's own first day. Not used anywhere in the Task A impact calculation (`impact_estimate.py` only reads `last_3_days_roi_at_action`, which is reliably null here), so it didn't corrupt any number — but it's a real internal inconsistency worth escalating to whoever owns that pipeline |
 
 **Checked and found no additional issues in:** row counts across all 5 files (verified against
 `README_DATA.md`'s implicit expectations and internal consistency — `rule_executions` row count
@@ -307,19 +307,19 @@ matches the sum of `auto_rules.firings` exactly); date range coverage (all 7 day
 2026-06-06 through 2026-06-12, confirmed via `GROUP BY date`); the `roi`/`ctr`/`cr` unit
 conventions stated in `README_DATA.md` (spot-checked several rows by hand, then verified exactly
 across all rows: `profit = revenue - spend` and `roi = profit/spend` hold to within floating-point
-rounding for every row with `spend > 0`, `src/eda.py` §7); referential integrity across all 5
-files (0 orphaned `adset_id`/`rule_id` values in any direction, `src/eda.py` §4); internal date
+rounding for every row with `spend > 0`, `supporting/analysis/eda.py` §7); referential integrity across all 5
+files (0 orphaned `adset_id`/`rule_id` values in any direction, `supporting/analysis/eda.py` §4); internal date
 gaps within any single adset's active window — **re-verified on `count(DISTINCT date)` rather
 than raw row count**, specifically because issue #11's duplicate rows could otherwise have masked
 a real gap by inflating a row count without inflating date coverage; 0 true gaps, including
-re-checked specifically on the 72 duplicate-affected adsets (`src/eda_verify.py`, ad hoc query,
-not just `src/eda.py` §3's original weaker version); every categorical column other than
+re-checked specifically on the 72 duplicate-affected adsets (`supporting/analysis/eda_verify.py`, ad hoc query,
+not just `supporting/analysis/eda.py` §3's original weaker version); every categorical column other than
 `language` (`effective_status`, `delivery_status`, `bid_strategy`, `budget_optimization`,
 `objective`, `optimization_goal`, `budget_level`, rule `action`/`schedule`/`scope`, buyer
 `event_type`/`object_type`) — small, consistent value sets, no casing or whitespace variants
-(`src/eda.py` §5–6); the `bid_amount`/`roas_target` null pattern is a strict, zero-violation 1:1
-function of `bid_strategy` (`src/eda_verify.py` §V7); and negative values in any monetary or rate
-column (`src/eda.py` §7 — none found in spend, revenue, budgets, or bid amounts across any file).
+(`supporting/analysis/eda.py` §5–6); the `bid_amount`/`roas_target` null pattern is a strict, zero-violation 1:1
+function of `bid_strategy` (`supporting/analysis/eda_verify.py` §V7); and negative values in any monetary or rate
+column (`supporting/analysis/eda.py` §7 — none found in spend, revenue, budgets, or bid amounts across any file).
 
 **One precision correction caught on re-audit:** the null counts for `revenue`/`ctr`/`cr` quoted
 in conversation while this investigation was underway (2,721 / 2,953 / 3,097) were measured on

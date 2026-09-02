@@ -24,7 +24,7 @@ import anthropic
 
 from confidence_cap import apply_confidence_cap
 
-load_dotenv()
+load_dotenv(os.path.join(os.path.dirname(__file__), "..", "..", ".env"))
 
 HAIKU = "claude-haiku-4-5"
 SONNET = "claude-sonnet-5"

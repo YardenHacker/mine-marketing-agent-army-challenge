@@ -25,7 +25,7 @@ from deterministic_decision import deterministic_decision
 from llm_decision import decide
 from guardrail_check import apply_guardrails
 
-load_dotenv()
+load_dotenv(os.path.join(os.path.dirname(__file__), "..", "..", ".env"))
 
 TARGET_DATES = [date(2026, 6, 10), date(2026, 6, 11), date(2026, 6, 12)]
 HARD_COST_CEILING_USD = 6.0  # well under the $10 cap; aborts the run if reached

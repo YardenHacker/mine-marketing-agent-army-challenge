@@ -1,15 +1,15 @@
 # RESULTS.md — Task C: the Adset Decision Agent, built and run
 
 This documents the one working slice from `ARCHITECTURE.md`: the **Adset Decision Agent**, run
-against all 2,064 required (adset, date) pairs across 2026-06-10/11/12. Code is in `src/`
-(`context_compressor.py`, `deterministic_decision.py`, `llm_decision.py`, `guardrail_check.py`,
-`run_decisions.py`, `compare_decisions.py`, `validate_thresholds.py`); full run output is
-`out/decisions.jsonl`. The complete build-and-debug history — every bug found and fixed live, and
+against all 2,064 required (adset, date) pairs across 2026-06-10/11/12. Code is in
+`supporting/agent/` (`context_compressor.py`, `deterministic_decision.py`, `llm_decision.py`,
+`guardrail_check.py`, `run_decisions.py`, `compare_decisions.py`, `validate_thresholds.py`); full run output is
+`supporting/out/decisions.jsonl`. The complete build-and-debug history — every bug found and fixed live, and
 every direct challenge from the user that changed the design — is in `DECISIONS.md`; this
 document reports the current, final results and their honest interpretation, not the process of
 getting here.
 
-**This is the second full run (v2).** The first run (v1, `out/run1_backup/`) surfaced a real
+**This is the second full run (v2).** The first run (v1, `supporting/out/run1_backup/`) surfaced a real
 problem — the agent was far too timid to be useful — which was diagnosed, fixed, and re-run. Both
 numbers are reported below where the contrast matters; the current numbers are v2's.
 
@@ -138,7 +138,7 @@ autonomous moved so much less than actionable did in the *first* fix, and what c
 `INVESTIGATION.md` §1.4's measured delay — treat a decision's outcome as unsettled for at least
 the days its own `near_dataset_edge`-equivalent window covers).
 
-**Storage**: a decisions ledger — `out/decisions.jsonl` is the seed of this; in a live system it
+**Storage**: a decisions ledger — `supporting/out/decisions.jsonl` is the seed of this; in a live system it
 would be a real table joined to `daily_adset_performance` once each date settles, producing a
 label like `{decision_id, predicted_action, predicted_confidence, settled_roi, was_direction_correct}`.
 
@@ -236,12 +236,12 @@ the follow-up ROI (+33%) proved them right.
 (83% directional agreement, §5 above, plus catching the one adset that actually bled money for a
 week unwatched — `31314467522499`/R09). On realized dollars, in this small sample, it is *not*
 proven better — it's close (-$3.68 on $9-13 totals) and n=18 is too small to call decisively
-either way. Full per-decision detail: `out/money_impact.jsonl`.
+either way. Full per-decision detail: `supporting/out/money_impact.jsonl`.
 
 ### Two disagreement patterns worth naming specifically
 
 **`scale_up` vs. `scale_down` (2/5 cases)**: on the 5 adset-days we chose `scale_down`, a real
-buyer chose `scale_up` twice. Read from the raw reasoning (`out/comparison_matched.jsonl`): both
+buyer chose `scale_up` twice. Read from the raw reasoning (`supporting/out/comparison_matched.jsonl`): both
 are genuinely ambiguous, mixed-signal cases — not the agent missing an obvious trend, but a real
 difference in risk tolerance on borderline evidence.
 
