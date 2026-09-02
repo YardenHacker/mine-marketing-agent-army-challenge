@@ -62,49 +62,47 @@ design decision that answers §3's economics question, seen from a different ang
 
 ### Diagram — pipeline and role boundaries
 
-![Agent pipeline diagram: Meta Ads API feeds the Screener every 30 minutes; roughly a third to just over half of active adsets need no action depending on the day, the rest get flagged to the Analyst (the one LLM-backed role) under the four-condition rule defined in §3; the Analyst's proposed decision passes through the Portfolio Guardian, which approves within-bounds actions to the Executor, routes borderline ones to a human approval queue, and blocks forbidden ones outright; the Executor writes back to Meta and logs to the decision ledger; the Auditor continuously reconciles the ledger against Meta's actual state and, once revenue settles days later, against real outcomes, feeding a circuit breaker that can automatically freeze the Screener and a manually-triggered kill switch that can stop the Executor at any time.](supporting/assets/agent-pipeline-diagram.png)
+![Simplified agent pipeline: Meta feeds the Screener, which quietly handles most adsets itself and sends only the ones that need judgment to the Analyst, the one AI step. The Analyst's proposed action passes through the Guardian's safety check, which either sends it straight to the Executor or holds it for a human to approve first. The Executor applies approved changes back to Meta and logs everything to the Auditor, which can halt the whole pipeline if something looks broken and feeds real outcomes back to the Analyst over time.](supporting/assets/agent-pipeline-diagram.png)
+
+**In plain terms**: an ad's day starts at the **Screener** — plain code, no AI, just checking
+numbers against thresholds. Most ads need nothing done, so most of them stop right there. Only
+the ones that actually need a judgment call (a new ad, one trending up or down, one pacing
+oddly) go to the **Analyst** — the one step that's actually AI. Whatever the Analyst proposes
+goes through the **Guardian**, a safety check with hard, non-negotiable limits: if the proposal
+is small and the Analyst is confident, it goes straight to the **Executor** to make the real
+change on Meta; if it's a bigger change, the Analyst wasn't sure, or something about the ad looks
+off, a **human** reviews it first. Every action — automatic or human-approved — gets logged to
+the **Auditor**, which does two jobs: it double-checks the change actually took effect on Meta
+(this is the exact check that would have caught the R09 failure from `INVESTIGATION.md` within
+minutes instead of 61 hours), and once revenue settles days later, it feeds the real outcome back
+so the Analyst's future judgment gets sharper. If the Auditor ever spots something seriously
+wrong, it can halt the whole pipeline — see §4 below for exactly how that works and how it differs
+from a human hitting a manual stop button.
 
 *Static render above for portability (any Markdown viewer); the Mermaid source below is the
-editable version, and an interactive light/dark-aware rendering with a plain-language legend is
-in the design-discussion artifact referenced in `DECISIONS.md`.*
+editable version.*
 
 ```mermaid
-flowchart TB
-    subgraph cycle["Every 30 min — bounded by Meta rate limits"]
-        META[("Meta Ads API")]
-        SCREEN["Screener\n(SQL/code, no LLM)\nreads: today's spend, live budget,\nrecent action history"]
-        META -->|live budget + spend, cheap fields only| SCREEN
-    end
+flowchart LR
+    META[("Meta Ads API")]
+    SCREEN["Screener\nplain code, no AI"]
+    ANALYST["Analyst\nthe one AI step"]
+    GUARDIAN["Guardian\nsafety check"]
+    EXEC["Executor\nmakes the change"]
+    HUMAN["Human review"]
+    AUDITOR(("Auditor\nwatches everything"))
 
-    SCREEN -->|"no action needed\n(rest, varies by day)"| DONE1["no-op, logged"]
-    SCREEN -->|"flagged (42-66%, measured):\nday-1 / bad or good trend /\npacing"| ANALYST
-
-    subgraph decision["Once per flagged adset per day"]
-        ANALYST["Analyst\n(LLM — Haiku 4.5 default,\nSonnet 5 on escalation)\nreads: compressed context, see §5"]
-        ANALYST -->|action, amount, confidence,\nreasoning, data_quality_flags| GUARDIAN
-        GUARDIAN["Portfolio Guardian\n(deterministic bounds +\naggregate mandate check)"]
-    end
-
-    GUARDIAN -->|"within bounds"| EXEC["Executor\n(deterministic)\nre-fetches LIVE budget\nbefore acting"]
-    GUARDIAN -->|"exceeds bounds or\nportfolio risk"| HUMAN["Human approval queue"]
-    GUARDIAN -->|"forbidden action"| BLOCK["Blocked, logged, no execution"]
-
-    EXEC -->|apply change| META
-    HUMAN -->|approved| EXEC
-    EXEC -->|response incl. failures| LEDGER[("Decision ledger")]
-
-    subgraph audit["Continuous / daily batch"]
-        AUDITOR["Auditor\n(deterministic reconciliation +\ncheap-model daily digest)"]
-        LEDGER --> AUDITOR
-        META -->|actual live state| AUDITOR
-        PERF[("Settled performance,\narrives with delay")] -->|"days later"| AUDITOR
-        AUDITOR -->|"mismatch or\nrepeated failure"| BREAKER
-    end
-
-    BREAKER["Circuit breaker\n(automatic, scoped)"] -.->|trips: halts affected scope,\nfreezes to no-action state| SCREEN
-    KILL["Kill switch\n(manual, human-triggered)"] -.->|full stop, any scope| EXEC
-
-    AUDITOR -->|"outcome label\n(feedback loop, see RESULTS.md)"| ANALYST
+    META --> SCREEN
+    SCREEN -->|"most ads:\nnothing to do"| META
+    SCREEN -->|"needs a\njudgment call"| ANALYST
+    ANALYST -->|"proposed\naction"| GUARDIAN
+    GUARDIAN -->|"small &\nconfident"| EXEC
+    GUARDIAN -->|"bigger, unsure,\nor risky"| HUMAN
+    HUMAN -->|"approved"| EXEC
+    EXEC -->|"applies it"| META
+    EXEC -.->|"logs it"| AUDITOR
+    AUDITOR -.->|"can halt everything\nif something's wrong"| SCREEN
+    AUDITOR -.->|"real outcomes,\nover time"| ANALYST
 ```
 
 ---
